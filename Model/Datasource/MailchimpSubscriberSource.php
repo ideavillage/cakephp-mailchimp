@@ -26,7 +26,7 @@ class MailchimpSubscriberSource extends DataSource {
 		//set ApiKey, default list Id and baseUrl
 		$this->settings = $config;
 
-		App::import('Vendor', 'Mailchimp.mailchimp/MCAPI.class');
+		App::import('Vendor', 'Mailchimp.MailChimp/MCAPI.class');
 		$this->Mailchimp = new MCAPI(Configure::read('Mailchimp.apiKey'));
 
 		parent::__construct($config);

@@ -10,7 +10,7 @@ class MailchimpController extends MailchimpAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		App::import('Vendor', 'Mailchimp.mailchimp/MCAPI.class');
+		App::import('Vendor', 'Mailchimp.MailChimp/MCAPI.class');
 		$this->Mailchimp = new MCAPI(Configure::read('Mailchimp.apiKey'));
 	}
 
