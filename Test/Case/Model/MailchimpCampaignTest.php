@@ -38,7 +38,7 @@ class MailchimpCampaignTest extends MyCakeTestCase {
 	 * @return void
 	 */
 	public function testCampaignSendTest() {
-		$res = $this->MailchimpCampaign->campaignSendTest(array('markscherer@gmx.de'));
+		$res = $this->MailchimpCampaign->campaignSendTest(array('kontakt@markscherer.de'));
 		debug($res);
 		debug($this->MailchimpCampaign->Mailchimp->errorCode);
 		debug($this->MailchimpCampaign->Mailchimp->errorMessage);
