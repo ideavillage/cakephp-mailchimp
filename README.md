@@ -6,6 +6,10 @@ Please check [the original blogpost][1] on our devblog for more background infor
 
 It uses the current API version 1.3 from Mailchimp.
 
+## Deprecation Notice
+**This branch (using 1.3 Mailchimp API) is deprecated**. Please use the master branch and the
+2.0 Mailchimp API.
+
 ## Setup
 
 Copy the plugin into the `APP/Plugin` folder and make sure it is loaded using `CakePlugin::loadAll()`, for example.
