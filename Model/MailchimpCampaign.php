@@ -243,6 +243,7 @@ class MailchimpCampaign extends MailchimpAppModel {
 		$campaignOptions += $defaults;
 
 		$options = array(
+			'type'    => $type,
 			'options' => $campaignOptions
 		);
 		$options['content'] = $content;
