@@ -7,8 +7,11 @@ class MailchimpList extends MailchimpAppModel {
 	public $validate = array(
 		'email' => array(
 			'email' => array(
-				'rule' => array('email'),
-				'message' => 'Please enter a valid e-mail address')));
+				'rule'    => array('email'),
+				'message' => 'Please enter a valid e-mail address'
+			)
+		)
+	);
 
 	/**
 	 * Use $_schema to set any mailchimp fields that you want to use
@@ -16,26 +19,29 @@ class MailchimpList extends MailchimpAppModel {
 	 * @var array
 	 */
 	protected $_schema = array(
-		'id' => array(
-			'type' => 'int',
-			'null' => true,
-			'key' => 'primary',
+		'id'    => array(
+			'type'   => 'int',
+			'null'   => true,
+			'key'    => 'primary',
 			'length' => 11,
-			),
+		),
 		'email' => array(
-			'type' => 'string',
-			'null' => false,
-			'length' => 256),
+			'type'   => 'string',
+			'null'   => false,
+			'length' => 256
+		),
 		'fname' => array(
-			'type' => 'string',
-			'null' => true,
-			'key' => 'primary',
-			'length' => 128),
+			'type'   => 'string',
+			'null'   => true,
+			'key'    => 'primary',
+			'length' => 128
+		),
 		'lname' => array(
-			'type' => 'string',
-			'null' => true,
-			'length' => 128),
-		);
+			'type'   => 'string',
+			'null'   => true,
+			'length' => 128
+		),
+	);
 
 	/**
 	 *
@@ -54,7 +60,7 @@ class MailchimpList extends MailchimpAppModel {
 	public function staticSegmentAdd($name) {
 
 		$options = array(
-			'id' => $this->settings['defaultListId'],
+			'id'   => $this->settings['defaultListId'],
 			'name' => $name
 		);
 
@@ -72,20 +78,42 @@ class MailchimpList extends MailchimpAppModel {
 	 *                      email   string    an email address
 	 *                      euid    string    the unique id for an email address (not list related) - the email "id" returned from lists/member-info(), Webhooks, Campaigns, etc.
 	 *                      leid    string    the list email id (previously called web_id) for a list-member-info type call. this doesn't change when the email address changes
+	 * @return mixed
+	 */
+	public function staticSegmentMembersAdd($segmentId, $batch) {
+
+		$options = array(
+			'id'     => $this->settings['defaultListId'],
+			'seg_id' => $segmentId,
+			'batch'  => $batch
+		);
+
+		return $this->call('lists/static-segment-members-add', $options);
+	}
+
+	/**
+	 * Remove list members from a static segment. It is suggested that you limit batch size to no more than 10,000
+	 * addresses per call. Email addresses must exist on the list in order to be removed - this will not
+	 * unsubscribe them from the list!
 	 *
-	 * @param $batch
+	 * Parameters
+	 * @param segmentId int	the id of the static segment to delete - get from lists/static-segments()
+	 * @param batch array	an array of structs for each address using one of the following keys:
+	 *                  email	string	an email address
+	 *                  euid	string	the unique id for an email address (not list related) - the email "id" returned from listMemberInfo, Webhooks, Campaigns, etc.
+	 *                  leid	string	the list email id (previously called web_id) for a list-member-info type call. this doesn't change when the email address changes
 	 *
 	 * @return mixed
 	 */
-	public function staticSegmentMemberAdd($segmentId, $batch){
+	public function staticSegmentMembersDel($segmentId, $batch) {
 
 		$options = array(
-			'id' => $this->settings['defaultListId'],
-			'seq_id' => $segmentId,
-			'batch' => $batch
+			'id'     => $this->settings['defaultListId'],
+			'seg_id' => $segmentId,
+			'batch'  => $batch
 		);
 
-		return $this->call('lists/static-segment-member-add', $options);
+		return $this->call('lists/static-segment-members-del', $options);
 	}
 
 }
